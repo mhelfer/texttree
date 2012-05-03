@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">TextTree</string>
+	<string name="addTreeActivity">Add Tree</string>
+	<string name="editTreeActivity">Edit Tree</string>
+	<string name="sendActivity">Send Message To Tree</string>
+	<string name="widgetConfigureActivity">Add Tree</string>
+	
+	<!-- Labels -->
+	<string name="labelName">Changes save automatically</string>
+	<string name="labelCurrentTrees">Current Trees:</string>
+	<string name="labelLongPress">long press to edit or delete:</string>
+	<string name="labelChooseOne">Choose One</string>
+	<string name="labelConfirmDeleteTreeTitle">Confirm Delete</string>
+	<string name="labelConfirmDeleteTreeText">Are you sure you want to delete \'%s\'?</string>
+	<string name="labelConfirmDeleteContactTitle">Confirm Delete</string>
+	<string name="labelConfirmDeleteContactText">Are you sure you want to remove this contact?</string>
+	<string name="labelEmptyTreeList">You have not created any trees yet</string>
+	<string name="labelEmptyContactList">You have not added any contacts yet</string>
+	<string name="positive">Yes</string>
+	<string name="negative">No</string>
+	<string name="characterLimit">160</string>
+	<string name="message">message</string>
+	<string name="chooseAList">Choose a List</string>
+	
+	<!-- Buttons -->
+	<string name="buttonAddContacts">Add Contact</string>
+    <string name="buttonCreate">+ New Text Tree</string>
+    <string name="buttonSave">Save Tree</string>
+    <string name="buttonEdit">Edit</string>
+    <string name="buttonSend">Send Message</string>
+    
+    <!-- Edit Hints -->
+    <string name="editTreeName">Tree Name</string>
+    
+    <!-- Accessibility -->
+   <string name="popupWindowAnchor">Action window anchor</string>
+   <string name="popupWindowLeftEdge">Action window left edge</string>
+   <string name="popupWindowRightEdge">Action window right edge</string>
+   <string name="launchActionWindow">Launch Action Window</string>
+
+</resources>

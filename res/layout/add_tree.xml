@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+	
+    <TextView
+        android:id="@+id/labelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/labelName" />
+    
+    <EditText
+        android:id="@+id/editTreeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/labelName"
+        android:hint="@string/editTreeName" />
+
+    <!-- Require TextViews for the two line list view -->
+
+    <TextView
+        android:id="@android:id/text2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="12dp"
+        android:textStyle="italic" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/lineSeperator" >
+    </ListView>
+
+    <Button
+        android:id="@+id/buttonAddContacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTreeName"
+        android:layout_centerHorizontal="true"
+        android:text="@string/buttonAddContacts" />
+    
+    <TextView 
+        android:id="@+id/lineSeperator"
+        android:layout_width="fill_parent"
+		android:layout_height="2dip"
+		android:background="#00bfff" 
+		android:layout_marginTop="5dp"
+		android:layout_below="@+id/buttonAddContacts"/>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lineSeperator"
+        android:layout_centerHorizontal="true"
+        android:text="@string/labelEmptyContactList" />
+
+</RelativeLayout>
