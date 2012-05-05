@@ -30,6 +30,7 @@ public class DBHelper  {
 	private static final String[] TREE_COLS = new String[] {"_id", COL_TREE_NAME};
 	private static final String[] CONTACT_COLS = new String[] {"_id", COL_CONTACT_NAME, COL_CONTACT_PHONE, COL_TREE_ID};
 		
+	private static final String LOG_TAG = "DBHelper";
 	
 	private SQLiteDatabase db;
 	private final DBOpenHelper dbOpenHelper;
@@ -83,7 +84,7 @@ public class DBHelper  {
 		ContentValues values = new ContentValues();
 		values.put(COL_TREE_NAME, textTree.name);
 		
-		Log.i("DBHelper", "textTree.id = " + textTree.id);
+		Log.i(LOG_TAG, "textTree.id = " + textTree.id);
 		
 		db.beginTransaction();
 		

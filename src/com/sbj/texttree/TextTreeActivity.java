@@ -40,6 +40,7 @@ public class TextTreeActivity extends ListActivity {
 	private static final int ID_EDIT = 2;
 	private static final int ID_SEND = 3;
 	
+	private static final String LOG_TAG = "TextTreeActivity";
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +68,7 @@ public class TextTreeActivity extends ListActivity {
 			public void onItemClick(final QuickAction quickAction,final int pos, int actionId) {
 				
 				if (actionId == ID_DELETE) {
-					Log.i("TextTree.TextTreeActivity","Delete item selected on row " + quickAction.getSelectedRow());
+					Log.i(LOG_TAG,"Delete item selected on row " + quickAction.getSelectedRow());
 					
 					AlertDialog.Builder deleteConfirm = new AlertDialog.Builder(TextTreeActivity.this);
 					final TextTree treeItem = trees.get(quickAction.getSelectedRow());
@@ -88,14 +89,14 @@ public class TextTreeActivity extends ListActivity {
 					deleteConfirm.create().show();
 					
 				} else if(actionId == ID_EDIT){
-					Log.i("TextTree.TextTreeActivity", "Edit item selected on row "+ quickAction.getSelectedRow());
+					Log.i(LOG_TAG, "Edit item selected on row "+ quickAction.getSelectedRow());
 					
 					Intent intent = new Intent(TextTreeActivity.this, AddEditActivity.class);
 					intent.putExtra(BUNDLE_TREE_ID, trees.get(quickAction.getSelectedRow()).id);
 					startActivity(intent);
 					
 				} else if(actionId == ID_SEND){
-					Log.i("TextTree.TextTreeActivity", "Send item selected on row "+ quickAction.getSelectedRow());
+					Log.i(LOG_TAG, "Send item selected on row "+ quickAction.getSelectedRow());
 					
 					Intent intent = new Intent(TextTreeActivity.this, SendActivity.class);
 					intent.putExtra(BUNDLE_TREE_ID, trees.get(quickAction.getSelectedRow()).id);
@@ -121,7 +122,7 @@ public class TextTreeActivity extends ListActivity {
         
         //Allow for clicking
         listView.setClickable(true);
-        Log.i("TextTreeActivity", "count = " + listView.getCount());
+        Log.i(LOG_TAG, "count = " + listView.getCount());
 		
         //Clicking directly on the list item sends the user to the send functionality.
         listView.setOnItemClickListener(new OnItemClickListener() {

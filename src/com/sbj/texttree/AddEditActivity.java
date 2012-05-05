@@ -55,6 +55,8 @@ public class AddEditActivity extends ListActivity {
 	
 	private DBHelper dbHelper;
 	
+	private static final String LOG_TAG = "AddEditActivity";
+	
 	private static final Comparator<Map<String,String>> BY_NAME = new Comparator<Map<String,String>>(){
 
 		@Override
@@ -167,8 +169,8 @@ public class AddEditActivity extends ListActivity {
 			        Map<String, String> nameNumber = null;
 			        while( cursor.moveToNext() ) {
 			        	String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-			        	Log.i("onActivityResult", "name = " + contactName);
-				        Log.i("onActivityResult", "number = " + number);
+			        	Log.i(LOG_TAG, "onActivityResult: name = " + contactName);
+				        Log.i(LOG_TAG, "onActivityResult: number = " + number);
 			        	
 			        	
 			        	nameNumber = new HashMap<String, String>(4);
