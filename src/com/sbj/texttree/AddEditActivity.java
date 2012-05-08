@@ -169,13 +169,17 @@ public class AddEditActivity extends ListActivity {
 			        cursor = managedQuery(Phone.CONTENT_URI, new String [] { Phone._ID, Phone.NUMBER, Phone.TYPE }, Phone._ID + " = " + contactId, null, null);
 			        Map<String, String> nameNumber = null;
 			        while( cursor.moveToNext() ) {
-			        	String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-			        	Log.i(LOG_TAG, "onActivityResult: name = " + contactName);
-				        Log.i(LOG_TAG, "onActivityResult: number = " + number);
+			        	String number = cursor.getString(cursor.getColumnIndex(Phone.NUMBER));
+			        	int type = cursor.getInt(cursor.getColumnIndex(Phone.TYPE));
 			        	
+				        String typeLabel = (String) Phone.getTypeLabel(AddEditActivity.this.getResources(), type, "");
 			        	
+				        Log.d(LOG_TAG, "onActivityResult: type = " + type);
+			        	Log.d(LOG_TAG, "onActivityResult: name = " + contactName);
+				        Log.d(LOG_TAG, "onActivityResult: number = " + typeLabel);
+				        
 			        	nameNumber = new HashMap<String, String>(4);
-			        	nameNumber.put(NAME, contactName);
+			        	nameNumber.put(NAME, contactName + "-" + typeLabel);
 			        	nameNumber.put(NUMBER, number);
 			        	
 			        	contactsList.add(nameNumber);
