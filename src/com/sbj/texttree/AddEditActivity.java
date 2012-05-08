@@ -126,14 +126,15 @@ public class AddEditActivity extends ListActivity {
 		tree = dbHelper.get(id);
 		dbHelper.cleanup();
 		Map<String, String> contactsForList;
-		for(TreeContact contact : tree.treeContacts) {
-			contactsForList = new HashMap<String,String>(2);
-			contactsForList.put(NAME, contact.contactName);
-			contactsForList.put(NUMBER, contact.contactPhone);
-			contactsList.add(contactsForList);
+		if(tree.treeContacts != null){
+			for(TreeContact contact : tree.treeContacts) {
+				contactsForList = new HashMap<String,String>(2);
+				contactsForList.put(NAME, contact.contactName);
+				contactsForList.put(NUMBER, contact.contactPhone);
+				contactsList.add(contactsForList);
+			}
+			Collections.sort(contactsList,BY_NAME);
 		}
-		
-		Collections.sort(contactsList,BY_NAME);
 		
 		EditText treeName = (EditText)findViewById(R.id.editTreeName);
 		treeName.setText(tree.name);
@@ -201,31 +202,35 @@ public class AddEditActivity extends ListActivity {
 	}
 	
 	private void handleSave(){
-		dbHelper = new DBHelper(this);
+		
 		editTreeName = (EditText) findViewById(R.id.editTreeName);
 		
 		if(tree == null && contactsList.size() == 0){
-			dbHelper.cleanup();
-			return;
-		}
-		else if(tree != null && contactsList.size() == 0){
-			dbHelper.deleteTree(tree.id);
-			dbHelper.cleanup();
 			return;
 		}
 		else if(tree == null){
 			tree = new TextTree();
 		}
 		
-		
-		
-		//If the user hasn't named the list yet, use the first contact in the list.
-		if(editTreeName == null || editTreeName.getText().toString().equals("")){
+		dbHelper = new DBHelper(this);
+		//If an existing tree name and all contacts have been deleted, delete the tree
+		if(editTreeName.getText().toString().equals("") && contactsList.size() == 0){
+			dbHelper.deleteTree(tree.id);
+			dbHelper.cleanup();
+			Intent intent = new Intent(this, TextTreeActivity.class);
+	    	startActivity(intent);
+	    	return;
+		}
+		//otherwise if there are contacts but no name, use the first contact as the name
+		else if(editTreeName == null || editTreeName.getText().toString().equals("")){
 			tree.name = contactsList.get(0).get(NAME);
 		}
+		//otherwise use the name the user entered.
 		else {
 			tree.name = editTreeName.getText().toString();
 		}
+		
+		
 		
 		List<TreeContact> contacts = new ArrayList<TreeContact>(10);
 		TreeContact treeContact = null;
