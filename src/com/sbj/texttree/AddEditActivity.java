@@ -94,6 +94,7 @@ public class AddEditActivity extends ListActivity {
   			@Override
   			public void onItemClick(QuickAction quickAction, int pos, int actionId) {
 				contactsList.remove(mSelectedRow);
+				handleSave();
 				adapter.notifyDataSetChanged();
   			}
   		});
@@ -196,16 +197,23 @@ public class AddEditActivity extends ListActivity {
 	}
 	
 	private void handleSave(){
+		dbHelper = new DBHelper(this);
 		editTreeName = (EditText) findViewById(R.id.editTreeName);
 		
 		if(tree == null && contactsList.size() == 0){
+			dbHelper.cleanup();
+			return;
+		}
+		else if(tree != null && contactsList.size() == 0){
+			dbHelper.deleteTree(tree.id);
+			dbHelper.cleanup();
 			return;
 		}
 		else if(tree == null){
 			tree = new TextTree();
 		}
 		
-		dbHelper = new DBHelper(this);
+		
 		
 		//If the user hasn't named the list yet, use the first contact in the list.
 		if(editTreeName == null || editTreeName.getText().toString().equals("")){

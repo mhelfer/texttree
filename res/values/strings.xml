@@ -15,7 +15,7 @@
 	<string name="labelConfirmDeleteTreeText">Are you sure you want to delete \'%s\'?</string>
 	<string name="labelConfirmDeleteContactTitle">Confirm Delete</string>
 	<string name="labelConfirmDeleteContactText">Are you sure you want to remove this contact?</string>
-	<string name="labelEmptyTreeList">You have not created any trees yet</string>
+	<string name="labelEmptyTreeList">\nUse Text Tree to create easy to access, text messaging distribution lists. \n\nJust press the \'New Text Tree\' button above to begin. </string>
 	<string name="labelEmptyContactList">You have not added any contacts yet</string>
 	<string name="positive">Yes</string>
 	<string name="negative">No</string>
