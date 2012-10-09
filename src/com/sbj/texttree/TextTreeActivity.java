@@ -48,9 +48,8 @@ public class TextTreeActivity extends ListActivity {
         setContentView(R.layout.main);
          
         //Query database for existing lists.
-        dbHelper = new DBHelper(this);
-        trees = dbHelper.getAll();
-        dbHelper.cleanup();
+        trees = getCurrentTrees();
+        Collections.sort(trees);
         
         //Setup the QuickActionMenu
         final ActionItem deleteTree = new ActionItem(ID_DELETE, getResources().getString(R.string.qaDelete), getResources().getDrawable(R.drawable.ic_menu_delete));
@@ -108,7 +107,6 @@ public class TextTreeActivity extends ListActivity {
 		
 		//If we found lists in the database add them to the list adapter.
         if(trees!= null) { 
-        	Collections.sort(trees);
         	adapter = new QuickActionListAdapter(this);
         	adapter.setData(trees);
         	adapter.setQuickActionMenu(quickAction);
@@ -159,24 +157,26 @@ public class TextTreeActivity extends ListActivity {
 		});
     }
     
-    public void onResume(){
-    	super.onResume();
-    	
+    private List<TextTree> getCurrentTrees(){
     	dbHelper = new DBHelper(this);
         trees = dbHelper.getAll();
         dbHelper.cleanup();
         
-        Collections.sort(trees);
-    	adapter.setData(trees);
+        return trees;
+    }
+    
+    public void onResume(){
+    	super.onResume();
     	
+    	// Get the current list of trees in case one was created in the add view
+    	trees = getCurrentTrees();
+        Collections.sort(trees);
+        
+        // update the list of trees in the adapter.
+    	adapter.setData(trees);
     	adapter.notifyDataSetChanged();
     }
     
-    /**
-     * Refreshes the home page when users presses back. 
-     * Should figure out a better way to exit the application. This prevents them from 
-     * backing out. The user has to press Home.
-     */
 	public void onBackPressed() {
 		super.onBackPressed();
 		finish();

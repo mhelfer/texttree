@@ -44,18 +44,17 @@ public class AddEditActivity extends ListActivity {
 	private List<Map<String, String>> contactsList = new ArrayList<Map<String, String>>(10);
 	private SimpleAdapter adapter;
 	private TextTree tree;
+	
+	private int mSelectedRow = 0;
 
 	//Constants
 	private static final int PICK_CONTACT = 1;
 	private static final String NAME = "name";
 	private static final String NUMBER = "number";
-	
 	private static final int ID_DELETE = 1;
-	private int mSelectedRow = 0;
-	
-	private DBHelper dbHelper;
 	
 	private static final String LOG_TAG = "AddEditActivity";
+	
 	
 	private static final Comparator<Map<String,String>> BY_NAME = new Comparator<Map<String,String>>(){
 
@@ -70,27 +69,22 @@ public class AddEditActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_tree);
 		
-		long treeId = -1;
 		Bundle extras = getIntent().getExtras(); 
 		if(extras != null) {
-			treeId = extras.getLong("treeId");
-			handlePopulateScreen(treeId);
+			handlePopulateScreen(extras.getLong("treeId"));
 		}
 		
 		adapter = new SimpleAdapter(this, contactsList, android.R.layout.two_line_list_item, 
 					new String[]{NAME, NUMBER}, new int[]{android.R.id.text1, android.R.id.text2});
 		setListAdapter(adapter);
 		
-		//Configure the list.
-		ListView listView = getListView();
-        
         ActionItem deleteTree = new ActionItem(ID_DELETE, "Delete", getResources().getDrawable(R.drawable.ic_menu_delete));
         
-        final QuickAction mQuickAction 	= new QuickAction(this);
-        mQuickAction.addActionItem(deleteTree);
+        final QuickAction quickAction 	= new QuickAction(this);
+        quickAction.addActionItem(deleteTree);
         
         //setup the action item click listener
-  		mQuickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
   			@Override
   			public void onItemClick(QuickAction quickAction, int pos, int actionId) {
 				contactsList.remove(mSelectedRow);
@@ -98,11 +92,13 @@ public class AddEditActivity extends ListActivity {
 				adapter.notifyDataSetChanged();
   			}
   		});
-
+  		
+  		//Configure the list.
+  		ListView listView = getListView();
   		listView.setOnItemClickListener(new OnItemClickListener() {
   			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
   				mSelectedRow = position; //set the selected row
-  				mQuickAction.show(view);
+  				quickAction.show(view);
   			}
   		});
 		
@@ -122,7 +118,7 @@ public class AddEditActivity extends ListActivity {
 	 * This method will be executed in the EDIT version. It is used to populate data fields with existing data
 	 */
 	private void handlePopulateScreen(long id) { 
-		dbHelper = new DBHelper(this);
+		DBHelper dbHelper = new DBHelper(this);
 		tree = dbHelper.get(id);
 		dbHelper.cleanup();
 		Map<String, String> contactsForList;
@@ -205,13 +201,14 @@ public class AddEditActivity extends ListActivity {
 		editTreeName = (EditText) findViewById(R.id.editTreeName);
 		
 		if(tree == null && contactsList.size() == 0){
+			//There is nothing to save
 			return;
 		}
 		else if(tree == null){
 			tree = new TextTree();
 		}
 		
-		dbHelper = new DBHelper(this);
+		DBHelper dbHelper = new DBHelper(this);
 		//If an existing tree name and all contacts have been deleted, delete the tree
 		if(editTreeName.getText().toString().equals("") && contactsList.size() == 0){
 			dbHelper.deleteTree(tree.id);
@@ -228,7 +225,6 @@ public class AddEditActivity extends ListActivity {
 		else {
 			tree.name = editTreeName.getText().toString();
 		}
-		
 		
 		
 		List<TreeContact> contacts = new ArrayList<TreeContact>(10);

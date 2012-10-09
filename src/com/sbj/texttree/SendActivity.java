@@ -21,37 +21,31 @@ import com.sbj.texttree.domain.TreeContact;
 
 public class SendActivity extends ListActivity {
 
-	DBHelper dbHelper;
-	ArrayAdapter<TreeContact> adapter;
+	private DBHelper dbHelper;
+	private ArrayAdapter<TreeContact> adapter;
 	
-	Button send;
-	TextTree tree = null;
-	TextView message;
-	TextView charCount;
+	private Button send;
+	private TextTree tree = null;
+	private TextView message;
+	private TextView charCount;
 	
-	String contactDelimiter = ";";
+	private static final char CONTACT_DELIMITER = ',';
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.send_message);
 		
-		long treeId = 0;
-		
 		Bundle extras = getIntent().getExtras(); 
 		if(extras != null) {
-			dbHelper = new DBHelper(this);
-			treeId = extras.getLong("treeId");
-			tree = dbHelper.get(treeId);
-			dbHelper.cleanup();
+			getTreeForBundle(extras.getLong("treeId"));
 		}
 		
 		adapter = new ArrayAdapter<TreeContact>(this,android.R.layout.simple_list_item_checked, tree.treeContacts);
 		setListAdapter(adapter);
 		
 		final ListView contactList = getListView();
-		int count = contactList.getCount();
-		for(int i = 0; i< count; i++) { 
+		for(int i = 0; i< contactList.getCount(); i++) { 
 			contactList.setItemChecked(i, true);
 		}
 		
@@ -63,18 +57,17 @@ public class SendActivity extends ListActivity {
 				
 				StringBuilder builder = new StringBuilder();
 				EditText message = (EditText)findViewById(R.id.message);
-				if(message.getText() != null && message.getText().toString().trim().length() > 0){
-					ListView list = getListView();
-					int count = list.getCount();
-					for(int i = 0; i< count ; i++){
-						if(list.isItemChecked(i)){ 
-							TreeContact contact = (TreeContact)list.getItemAtPosition(i);
+				if(message.getText() != null && message.getText().toString().trim().length() > 0) {
+					
+					for(int i = 0; i< contactList.getCount(); i++){
+						if(contactList.isItemChecked(i)){ 
+							TreeContact contact = (TreeContact)contactList.getItemAtPosition(i);
 							builder.append(contact.contactPhone);
-							builder.append(contactDelimiter);
+							builder.append(CONTACT_DELIMITER);
 						}
 					}
 					
-					if(builder.charAt(builder.length()-1) == ',') {
+					if(builder.charAt(builder.length()-1) == CONTACT_DELIMITER) {
 						builder.deleteCharAt(builder.length()-1);
 					}
 					
@@ -111,6 +104,15 @@ public class SendActivity extends ListActivity {
 		TextView title = (TextView)findViewById(R.id.title);
 		title.setText(tree.name);
 		
+	}
+	
+	
+	private TextTree getTreeForBundle(long treeId) {
+		dbHelper = new DBHelper(this);
+		tree = dbHelper.get(treeId);
+		dbHelper.cleanup();
+		
+		return tree;
 	}
 	
 	public void onBackPressed() {
