@@ -53,9 +53,9 @@ public class TextTreeActivity extends ListActivity {
         dbHelper.cleanup();
         
         //Setup the QuickActionMenu
-        final ActionItem deleteTree = new ActionItem(ID_DELETE, "Delete", getResources().getDrawable(R.drawable.ic_menu_delete));
-		final ActionItem editITree = new ActionItem(ID_EDIT, "Edit", getResources().getDrawable(R.drawable.ic_menu_edit));
-		final ActionItem sendToTree = new ActionItem(ID_SEND, "Send", getResources().getDrawable(R.drawable.ic_menu_share));
+        final ActionItem deleteTree = new ActionItem(ID_DELETE, getResources().getString(R.string.qaDelete), getResources().getDrawable(R.drawable.ic_menu_delete));
+		final ActionItem editITree = new ActionItem(ID_EDIT, getResources().getString(R.string.qaEdit), getResources().getDrawable(R.drawable.ic_menu_edit));
+		final ActionItem sendToTree = new ActionItem(ID_SEND, getResources().getString(R.string.qaCompose), getResources().getDrawable(R.drawable.ic_menu_share));
         
         final QuickAction quickAction = new QuickAction(this);
         quickAction.addActionItem(deleteTree);
@@ -159,6 +159,19 @@ public class TextTreeActivity extends ListActivity {
 		});
     }
     
+    public void onResume(){
+    	super.onResume();
+    	
+    	dbHelper = new DBHelper(this);
+        trees = dbHelper.getAll();
+        dbHelper.cleanup();
+        
+        Collections.sort(trees);
+    	adapter.setData(trees);
+    	
+    	adapter.notifyDataSetChanged();
+    }
+    
     /**
      * Refreshes the home page when users presses back. 
      * Should figure out a better way to exit the application. This prevents them from 
@@ -166,7 +179,6 @@ public class TextTreeActivity extends ListActivity {
      */
 	public void onBackPressed() {
 		super.onBackPressed();
-		Intent intent = new Intent(this, TextTreeActivity.class);
-    	startActivity(intent);	
+		finish();
 	}
 }

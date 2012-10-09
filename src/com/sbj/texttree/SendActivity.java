@@ -29,6 +29,8 @@ public class SendActivity extends ListActivity {
 	TextView message;
 	TextView charCount;
 	
+	String contactDelimiter = ";";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,7 +46,6 @@ public class SendActivity extends ListActivity {
 			dbHelper.cleanup();
 		}
 		
-		//I should write a custom adapter for this, do a 2 line multiselect list.
 		adapter = new ArrayAdapter<TreeContact>(this,android.R.layout.simple_list_item_checked, tree.treeContacts);
 		setListAdapter(adapter);
 		
@@ -69,7 +70,7 @@ public class SendActivity extends ListActivity {
 						if(list.isItemChecked(i)){ 
 							TreeContact contact = (TreeContact)list.getItemAtPosition(i);
 							builder.append(contact.contactPhone);
-							builder.append(";");
+							builder.append(contactDelimiter);
 						}
 					}
 					
@@ -112,13 +113,9 @@ public class SendActivity extends ListActivity {
 		
 	}
 	
-    /**
-     * Refreshes the home page when users presses back.
-     */
 	public void onBackPressed() {
 		super.onBackPressed();
-		Intent intent = new Intent(this, TextTreeActivity.class);
-    	startActivity(intent);	
+		finish();
 	}
 	
 }

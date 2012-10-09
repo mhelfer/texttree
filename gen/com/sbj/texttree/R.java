@@ -104,7 +104,7 @@ public final class R {
         public static final int editTreeActivity=0x7f060002;
         /**  Edit Hints 
          */
-        public static final int editTreeName=0x7f060019;
+        public static final int editTreeName=0x7f06001c;
         public static final int labelChooseOne=0x7f060008;
         public static final int labelConfirmDeleteContactText=0x7f06000c;
         public static final int labelConfirmDeleteContactTitle=0x7f06000b;
@@ -117,15 +117,20 @@ public final class R {
         /**  Labels 
          */
         public static final int labelName=0x7f060005;
-        public static final int launchActionWindow=0x7f06001d;
+        public static final int launchActionWindow=0x7f060020;
         public static final int message=0x7f060012;
         public static final int negative=0x7f060010;
         /**  Accessibility 
          */
-        public static final int popupWindowAnchor=0x7f06001a;
-        public static final int popupWindowLeftEdge=0x7f06001b;
-        public static final int popupWindowRightEdge=0x7f06001c;
+        public static final int popupWindowAnchor=0x7f06001d;
+        public static final int popupWindowLeftEdge=0x7f06001e;
+        public static final int popupWindowRightEdge=0x7f06001f;
         public static final int positive=0x7f06000f;
+        public static final int qaCompose=0x7f06001b;
+        /**  QuickAction 
+         */
+        public static final int qaDelete=0x7f060019;
+        public static final int qaEdit=0x7f06001a;
         public static final int sendActivity=0x7f060003;
         public static final int widgetConfigureActivity=0x7f060004;
     }

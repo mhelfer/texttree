@@ -76,7 +76,7 @@ public class QuickActionListAdapter extends BaseAdapter{
 		
 		return convertView;
 	}
-	
+
 	static class ViewHolder {
 		TextView listText;
 	}

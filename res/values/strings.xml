@@ -30,6 +30,12 @@
     <string name="buttonEdit">Edit</string>
     <string name="buttonSend">Send Message</string>
     
+    <!-- QuickAction -->
+    <string name="qaDelete">Delete</string>
+    <string name="qaEdit">Edit</string>
+    <string name="qaCompose">Compose</string>
+    
+    
     <!-- Edit Hints -->
     <string name="editTreeName">Tree Name</string>
     

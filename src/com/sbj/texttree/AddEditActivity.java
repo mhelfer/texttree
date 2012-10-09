@@ -197,8 +197,7 @@ public class AddEditActivity extends ListActivity {
 	public void onBackPressed() {
 		super.onBackPressed();
 		handleSave();
-		Intent intent = new Intent(this, TextTreeActivity.class);
-    	startActivity(intent);
+		finish();
 	}
 	
 	private void handleSave(){
